@@ -30,9 +30,11 @@ This implementation of Connect-4 uses a Python-based AI, employing the minimax a
    ```
    pip install -r requirements.txt
    ```
-## Video 
+5. Note:
+   1. Make sure to activate the virtual environment.
+   2. If you run into requirements issues, maybe your local machine is set up wtih different package version. For example, you can switch python==8.22.1 to python==8.18.1.
 
-A video demonstration playing the AI using the GUI user interaction flow:
+## A video demonstration playing the AI using the GUI user interaction flow:
 
 <a href="https://drive.google.com/file/d/1350FhBpVtW9XTLvYiS4RqC7ZDHwmJB1V/view?usp=drive_link">
     <img src="Thumbnail.png" alt="Video Thumbnail" width="400" height="300">
