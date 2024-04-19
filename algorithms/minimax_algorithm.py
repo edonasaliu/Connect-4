@@ -39,7 +39,7 @@ def alpha_beta_search(board, current_player):
     - The best move for the current player.
 
     """
-    max_depth = 6
+    max_depth = 8
     return max_value(board, float('-inf'), float('inf'), current_player, 0, max_depth)
 
 def max_value(board, alpha, beta, player, depth, max_depth):
