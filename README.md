@@ -26,7 +26,10 @@ This implementation of Connect-4 uses a Python-based AI, employing the minimax a
     python3 -m gameplay.train_ai  # On Unix/macOS
     python -m gameplay.train_ai   # On Windows
     ```
-
+4. For all the requirements to run, do the following:
+   ```
+   pip install -r requirements.txt
+   ```
 ## Video 
 
 A video demonstration playing the AI using the GUI user interaction flow:
