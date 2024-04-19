@@ -32,7 +32,7 @@ This implementation of Connect-4 uses a Python-based AI, employing the minimax a
    ```
 5. Note:
    1. Make sure to activate the virtual environment.
-   2. If you run into requirements issues, maybe your local machine is set up wtih different package version. For example, you can switch python==8.22.1 to python==8.18.1.
+   2. If you run into requirements issues, maybe your local machine is set up with different package version. For example, you can switch python==8.22.1 to python==8.18.1.
 
 ## A video demonstration playing the AI using the GUI user interaction flow:
 
