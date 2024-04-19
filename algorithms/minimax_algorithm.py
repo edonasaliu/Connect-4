@@ -3,6 +3,15 @@ from gameplay.game_play_helpers import is_terminal, utility, possible_moves, mak
 import copy
 
 def memoize_search(func):
+    """
+    A decorator function that memoizes the results of a search algorithm.
+
+    Args:
+        func (function): The search algorithm function to be memoized.
+
+    Returns:
+        function: The memoized version of the search algorithm function.
+    """
     def wrapper(board, player):
         session = Session()
         board_str = str(board)  # Convert the board list to a string to hash
@@ -19,10 +28,35 @@ def memoize_search(func):
 
 @memoize_search
 def alpha_beta_search(board, current_player):
+    """
+    Performs alpha-beta search on the given Connect-4 board.
+
+    Parameters:
+    - board: The Connect-4 board state.
+    - current_player: The player whose turn it is.
+
+    Returns:
+    - The best move for the current player.
+
+    """
     max_depth = 6
     return max_value(board, float('-inf'), float('inf'), current_player, 0, max_depth)
 
 def max_value(board, alpha, beta, player, depth, max_depth):
+    """
+    Calculates the maximum value and corresponding best move for the given board state using the minimax algorithm.
+
+    Args:
+        board (list): The current state of the game board.
+        alpha (float): The alpha value for alpha-beta pruning.
+        beta (float): The beta value for alpha-beta pruning.
+        player (str): The player for whom the maximum value is being calculated.
+        depth (int): The current depth of the search tree.
+        max_depth (int): The maximum depth of the search tree.
+
+    Returns:
+        tuple: A tuple containing the maximum value and the corresponding best move.
+    """
     if is_terminal(board) or depth == max_depth:
         return utility(board, player), None
     max_eval = float('-inf')
@@ -40,6 +74,20 @@ def max_value(board, alpha, beta, player, depth, max_depth):
     return max_eval, best_move
 
 def min_value(board, alpha, beta, player, depth, max_depth):
+    """
+    Calculates the minimum evaluation value and the best move for the given board state using the Minimax algorithm.
+
+    Args:
+        board (list): The current state of the game board.
+        alpha (float): The alpha value for alpha-beta pruning.
+        beta (float): The beta value for alpha-beta pruning.
+        player (str): The player for whom the evaluation is being done.
+        depth (int): The current depth of the search.
+        max_depth (int): The maximum depth of the search.
+
+    Returns:
+        tuple: A tuple containing the minimum evaluation value and the best move.
+    """
     if is_terminal(board) or depth == max_depth:
         return utility(board, player), None
     min_eval = float('inf')

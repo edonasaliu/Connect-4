@@ -5,7 +5,22 @@ import time
 import random
 
 
+import random
+
 def generate_move(board, move_generation="binomial"):
+    """
+    Generates a move based on the given board and move generation strategy.
+
+    Args:
+        board (list): The current game board.
+        move_generation (str, optional): The move generation strategy. Defaults to "binomial".
+
+    Returns:
+        int: The generated move.
+
+    Raises:
+        KeyError: If an invalid move generation strategy is provided.
+    """
     if move_generation == "uniform":
         weights = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
     elif move_generation == "skewed":
@@ -22,6 +37,19 @@ def generate_move(board, move_generation="binomial"):
 
 
 def main():
+    """
+    Function to train an AI by running multiple sessions of gameplay.
+
+    This function prompts the user for the number of training sessions, the maximum number of turns,
+    and the playing strategy for the trainer. It then runs the specified number of sessions, 
+    collects data on each session, and calculates various statistics based on the collected data.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
     n_sessions = int(input("Number of training sessions: "))
     max_turn = int(input("Set max number of turns: "))
     playing_strategy = input("Pick trainer (uniform, binomial, skewed): ")
@@ -61,6 +89,17 @@ def main():
 
 
 def train_ai(rounds=10, move_generation="normal"):
+    """
+    Trains an AI by playing rounds of the game against itself.
+
+    Parameters:
+    - rounds (int): The number of rounds to play. Default is 10.
+    - move_generation (str): The method used to generate moves for the AI. Default is "normal".
+
+    Returns:
+    - total_ai_time_spent (float): The total time spent by the AI in making moves.
+    - game_status (str): The status of the game after training. Possible values are "w" (win), "l" (loss), or "d" (draw).
+    """
     total_ai_time_spent = 0
     game_status = "d"
     trainer_turns_played = 0

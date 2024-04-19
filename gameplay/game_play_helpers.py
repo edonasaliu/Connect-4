@@ -78,6 +78,17 @@ def count_consecutive(board, length, symbol):
     return count
 
 def count_in_line(line, length, symbol):
+    """
+    Counts the number of consecutive occurrences of a given symbol in a line.
+
+    Args:
+        line (list): The line to search for consecutive occurrences.
+        length (int): The desired length of consecutive occurrences.
+        symbol: The symbol to count.
+
+    Returns:
+        int: The number of times the symbol appears consecutively in the line.
+    """
     count = 0
     consecutive = 0
     for value in line:
