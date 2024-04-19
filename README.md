@@ -8,12 +8,17 @@ This implementation of Connect-4 uses a Python-based AI, employing the minimax a
 
 ## Running the Game
 
-To play the game against the AI, run the following command in your terminal:
+1. First you need to cd into the project from your local:
 
-```
-python3 -m gui  # On Unix/macOS
-python -m gui   # On Windows
-```
+    ```
+    cd Connect-4
+    ```
+2. To play the game against the AI, run the following command in your terminal:
+
+    ```
+    python3 -m gui  # On Unix/macOS
+    python -m gui   # On Windows
+    ```
 
 To run the AI training module:
 
