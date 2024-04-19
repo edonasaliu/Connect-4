@@ -1,3 +1,8 @@
+# Reference:
+# I did check only how to code the functions, however I made my own modifications
+# https://stackoverflow.com/questions/31294615/creating-a-connect-4-game-in-python-but-dont-know-where-to-begin-with-a-win-con
+# https://medium.com/analytics-vidhya/artificial-intelligence-at-play-connect-four-minimax-algorithm-explained-3b5fc32e4a4f 
+
 def create_board():
     """Create a 6x7 board for Connect 4."""
     return [[' ' for _ in range(7)] for _ in range(6)]

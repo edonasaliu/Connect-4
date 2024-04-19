@@ -1,3 +1,8 @@
+# Reference: I based the logic of the minimax algorithm from the following sources as a reference:
+# www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/
+# https://en.wikipedia.org/wiki/Minimax
+# https://medium.com/analytics-vidhya/artificial-intelligence-at-play-connect-four-minimax-algorithm-explained-3b5fc32e4a4f 
+
 from database.models import SavedMove, Session
 from gameplay.game_play_helpers import is_terminal, utility, possible_moves, make_move
 import copy
