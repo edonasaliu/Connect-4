@@ -20,12 +20,12 @@ This implementation of Connect-4 uses a Python-based AI, employing the minimax a
     python -m gui   # On Windows
     ```
 
-To run the AI training module:
+3. To run the AI training module:
 
-```
-python3 -m gameplay.train_ai  # On Unix/macOS
-python -m gameplay.train_ai   # On Windows
-```
+    ```
+    python3 -m gameplay.train_ai  # On Unix/macOS
+    python -m gameplay.train_ai   # On Windows
+    ```
 
 ## Video 
 
