@@ -19,7 +19,7 @@ def memoize_search(func):
 
 @memoize_search
 def alpha_beta_search(board, current_player):
-    max_depth = 5
+    max_depth = 1
     return max_value(board, float('-inf'), float('inf'), current_player, 0, max_depth)
 
 def max_value(board, alpha, beta, player, depth, max_depth):

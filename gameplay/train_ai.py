@@ -1,15 +1,15 @@
 from algorithms.minimax_algorithm import alpha_beta_search
-from gameplay.game_play_helpers import create_board, show_board, make_move, possible_moves, check_win, is_terminal
+from gameplay.game_play_helpers import create_board, make_move, possible_moves, check_win, is_terminal
 import copy
 import time
 import random
 
 
-def generate_move(board, move_generation="normal"):
+def generate_move(board, move_generation="binomial"):
     if move_generation == "uniform":
         weights = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
-    elif move_generation == "side_biased":
-        weights = {0: 4, 1: 3, 2: 2, 3: 1, 4: 2, 5: 3, 6: 4}
+    elif move_generation == "skewed":
+        weights = {0: 6, 1: 5, 2: 4, 3: 3, 4: 2, 5: 1, 6: 1}
     else:
         weights = {0: 1, 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 1}
 
@@ -22,76 +22,73 @@ def generate_move(board, move_generation="normal"):
 
 
 def main():
-    num_sessions = int(input("How many sessions do you want to run?"))
-    num_rounds = int(input("Set max number of turns for trainer:"))
-    move_generation = input("Move distribution (uniform, normal, side_biased):")
+    n_sessions = int(input("Number of training sessions: "))
+    max_turn = int(input("Set max number of turns: "))
+    playing_strategy = input("Pick trainer (uniform, binomial, skewed): ")
 
-    session_data = []
-    num_sessions_completed = 0
+    data = []
+    sessions_finished = 0
     print("\nRunning session...")
     session_start_time = time.time()
-    for _ in range(num_sessions):
-        session_data.append(train_ai(num_rounds, move_generation))
-        num_sessions_completed += 1
-        completion_rate = round((num_sessions_completed*100) / num_sessions, 1)
+    for _ in range(n_sessions):
+        data.append(train_ai(max_turn, playing_strategy))
+        sessions_finished += 1
+        completion_rate = round((sessions_finished*100) / n_sessions, 1)
         fill_bars = int(completion_rate/4)
         print(f"{completion_rate}% complete |{'='*fill_bars + ' '*(25 - fill_bars)}|", end="")
         print("\r", end="")
 
-    total_ai_playing_time = 0
-    w, d, l = 0, 0, 0
+    total_time = 0
+    outcomes = {"w": 0, "d": 0, "l": 0}
 
     print("\n")
-    for i in range(len(session_data)):
-        total_ai_playing_time += session_data[i][0]
-        if session_data[i][1] == "W":
-            w += 1
-        elif session_data[i][1] == "D":
-            d += 1
-        elif session_data[i][1] == "L":
-            l += 1
+    for i in range(len(data)):
+        total_time += data[i][0]
+        outcome = data[i][1]
+        outcomes[outcome] += 1
 
     total_session_time = time.time() - session_start_time
 
-    print(f"FULL SESSION SUMMARY")
-    print(f"Total AI playing time: {round(total_ai_playing_time, 3)} seconds")
+    print(f"TRAINING SESSION RESULTS:")
+    print(f"Trainer: {playing_strategy}")
+    print(f"Total AI playing time: {round(total_time, 3)} seconds")
     print(f"Total Session time: {round(total_session_time, 3)} seconds")
-    print(f"Number of rounds played each game: {num_rounds} rounds")
-    print(f"Win rate: {round((w*100)/num_sessions, 1)}%")
-    print(f"Draw rate: {round((d*100)/num_sessions, 1)}%")
-    print(f"Loss rate: {round((l*100)/num_sessions, 1)}%")
+    print(f"Turns per player: {max_turn}")
+    print(f"Win rate: {round((outcomes['w']*100)/n_sessions, 1)}%")
+    print(f"Draw rate: {round((outcomes['d']*100)/n_sessions, 1)}%")
+    print(f"Loss rate: {round((outcomes['l']*100)/n_sessions, 1)}%")
     print("\n")
 
 
 def train_ai(rounds=10, move_generation="normal"):
     total_ai_time_spent = 0
-    game_status = "D"
+    game_status = "d"
     trainer_turns_played = 0
 
     board = create_board()
-    current_player = "X"
+    curr_player = "X"
 
     while not is_terminal(board) and trainer_turns_played < rounds:
-        if current_player == "O":
-            user_input = generate_move(board, move_generation)
-            board = make_move(board, user_input, 'X')
+        if curr_player == "O":
+            dummy_ai_move = generate_move(board, move_generation)
+            board = make_move(board, dummy_ai_move, 'O')
             trainer_turns_played += 1
 
         else:
             start = time.time()
             board_copy = copy.deepcopy(board)
-            _, move = alpha_beta_search(board_copy, current_player)
+            _, move = alpha_beta_search(board_copy, curr_player)
             board = make_move(board, move, 'X')
             time_spent = time.time() - start
             total_ai_time_spent += time_spent
 
         if check_win(board)[0]:
-            if current_player == "X":
-                game_status = "W"
+            if curr_player == "X":
+                game_status = "w"
             else:
-                game_status = "L"
+                game_status = "l"
 
-        current_player = 'O' if current_player == 'X' else 'X'
+        curr_player = 'O' if curr_player == 'X' else 'X'
 
     return total_ai_time_spent, game_status
 
